@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>पासपोर्ट फोटो ग्रिड मेकर (Passport & Stamp Photo Grid Maker 4x6 / A4)</title>
-  <meta name="description" content="1 फोटो से 6, 8, 12, 16 पासपोर्ट फोटो का प्रिंटेबल 4x6 या A4 ग्रिड बनाएं। इंडियन पासपोर्ट (3.5x4.5 cm), स्टैम्प साइज, कटिंग बॉर्डर व 300 DPI प्रिंट। 100% प्राइवेट।">
+  <title>पासपोर्ट फोटो ग्रिड मेकर प्रो (Name/Date Strip, Zoom & 4x6 / A4 Grid)</title>
+  <meta name="description" content="1 फोटो से 4x6 या A4 प्रिंटेबल शीट बनाएं। नाम और फोटो की तारीख (DOP) स्ट्रिप, ब्राइटनेस एडजस्टमेंट, 3.5x4.5 cm पासपोर्ट साइज व 300 DPI प्रिंट। 100% प्राइवेट।">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f172a' stroke='%2338bdf8' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='12' r='5' fill='%2338bdf8'/%3E%3Cpath d='M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8' stroke='%2310b981' stroke-width='2' fill='none'/%3E%3C/svg%3E">
 
@@ -30,6 +30,13 @@
       word-break: break-word;
       overflow-wrap: anywhere;
     }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] { -moz-appearance: textfield; }
+
     html, body {
       max-width: 100vw;
       overflow-x: hidden;
@@ -39,7 +46,7 @@
     }
     .container {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 1.25rem 1rem 3.5rem 1rem;
     }
@@ -75,7 +82,7 @@
     header p {
       color: var(--muted);
       font-size: clamp(0.85rem, 2vw, 0.95rem);
-      max-width: 700px;
+      max-width: 750px;
       margin: 0 auto;
     }
     .grid-layout {
@@ -83,9 +90,9 @@
       grid-template-columns: 1fr;
       gap: 1.5rem;
     }
-    @media (min-width: 860px) {
+    @media (min-width: 900px) {
       .grid-layout {
-        grid-template-columns: 1fr 1.05fr;
+        grid-template-columns: 1.05fr 0.95fr;
         align-items: start;
       }
       .sticky-pane {
@@ -121,25 +128,25 @@
       color: var(--muted);
       margin-bottom: 6px;
     }
-    select, input[type="number"] {
+    select, input[type="text"], input[type="date"], input[type="number"] {
       width: 100%;
-      padding: 10px 14px;
+      padding: 9px 12px;
       background: var(--card-inner);
       border: 1.5px solid var(--border);
       border-radius: 8px;
       color: var(--text);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       outline: none;
       transition: border-color 0.15s ease;
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
-    select:focus, input[type="number"]:focus {
+    select:focus, input:focus {
       border-color: var(--border-focus);
     }
     .upload-zone {
       border: 2px dashed var(--border);
       border-radius: 10px;
-      padding: 1.8rem 1rem;
+      padding: 1.5rem 1rem;
       text-align: center;
       cursor: pointer;
       background: var(--card-inner);
@@ -153,8 +160,38 @@
     .upload-zone span {
       display: block;
       color: var(--muted);
-      font-size: 0.85rem;
-      margin-top: 6px;
+      font-size: 0.82rem;
+      margin-top: 4px;
+    }
+    .controls-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .slider-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 0.9rem;
+    }
+    .slider-box {
+      background: var(--card-inner);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+      cursor: pointer;
     }
     .preview-box {
       background: var(--card-inner);
@@ -203,11 +240,6 @@
       cursor: pointer;
     }
     .btn-sub:hover { color: #fff; border-color: var(--muted); }
-    .controls-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
     .ecosystem-section {
       margin-top: 2.5rem;
       border-top: 1px solid var(--border);
@@ -300,18 +332,18 @@
           <circle cx="16" cy="12" r="5" fill="#38bdf8"/>
           <path d="M8 26c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#10b981" stroke-width="2" fill="none"/>
         </svg>
-        <span class="brand-name">Passport<span style="color:#38bdf8;">Grid</span></span>
-        <span class="brand-badge">300 DPI प्रिंट शीट</span>
+        <span class="brand-name">Passport<span style="color:#38bdf8;">Grid Pro</span></span>
+        <span class="brand-badge">नाम + DOP स्ट्रिप सपोर्ट</span>
       </div>
-      <h1>पासपोर्ट फोटो ग्रिड मेकर</h1>
-      <p>1 फोटो अपलोड करके 4×6 इंच (फोटो पेपर) या A4 शीट पर 6, 8, 12, या 16 फोटो का शीट तैयार करें और साइबर कैफे के ₹50-₹100 बचाएं।</p>
+      <h1>पासपोर्ट फोटो ग्रिड मेकर प्रो</h1>
+      <p>फोटो को ज़ूम/एडजस्ट करें, सरकारी भर्ती फॉर्म के लिए नाम और तारीख (DOP) जोड़ें, और 4×6 इंच या A4 पेपर पर 300 DPI प्रिंटेबल शीट तैयार करें।</p>
     </header>
 
     <div class="grid-layout">
       <!-- SETTINGS -->
       <div>
         <div class="card">
-          <div class="card-title">1. फोटो अपलोड करें</div>
+          <div class="card-title">1. फोटो अपलोड व पेपर सेटिंग्स</div>
           <div class="card-subtitle">PNG या JPEG फोटो चुनें (100% प्राइवेट, इन-ब्राउज़र)</div>
 
           <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
@@ -321,27 +353,101 @@
             <input type="file" id="fileInput" accept="image/*" style="display:none;" onchange="handleImageUpload(event)">
           </div>
 
-          <label>प्रिंट पेपर का साइज (Paper Sheet Size)</label>
-          <select id="selPaper" onchange="renderGrid()">
-            <option value="4x6" selected>4×6 इंच (Standard Photo Paper / 10×15 cm)</option>
-            <option value="A4">A4 पेपर (8.27×11.69 इंच)</option>
-          </select>
-
           <div class="controls-row">
             <div>
-              <label>फोटो का प्रकार (Photo Preset)</label>
-              <select id="selPreset" onchange="renderGrid()">
-                <option value="in_passport" selected>भारतीय पासपोर्ट (3.5 × 4.5 cm)</option>
-                <option value="stamp">स्टैम्प साइज (2.5 × 3.0 cm)</option>
-                <option value="us_visa">US / Schengen वीजा (2 × 2 इंच / 5×5 cm)</option>
+              <label>पेपर साइज (Paper)</label>
+              <select id="selPaper" onchange="renderGrid()">
+                <option value="4x6" selected>4×6 इंच (Photo Paper)</option>
+                <option value="A4">A4 पेपर (8.3×11.7 इंच)</option>
               </select>
             </div>
             <div>
-              <label>कटिंग बॉर्डर (Scissor Guidelines)</label>
+              <label>फोटो साइज (Preset)</label>
+              <select id="selPreset" onchange="renderGrid()">
+                <option value="in_passport" selected>भारतीय पासपोर्ट (3.5 × 4.5 cm)</option>
+                <option value="stamp">स्टैम्प साइज (2.5 × 3.0 cm)</option>
+                <option value="us_visa">US/Schengen वीजा (2 × 2 इंच)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="controls-row">
+            <div>
+              <label>कटिंग बॉर्डर (Guides)</label>
               <select id="selBorder" onchange="renderGrid()">
                 <option value="yes" selected>हाँ (पतला कटिंग बॉर्डर)</option>
                 <option value="no">नहीं (Border-free)</option>
               </select>
+            </div>
+            <div>
+              <label>कितनी फोटो प्रिंट करनी है?</label>
+              <select id="selCount" onchange="renderGrid()">
+                <option value="full" selected>पूरी शीट भरें (Full Sheet)</option>
+                <option value="4">केवल 4 फोटो</option>
+                <option value="6">केवल 6 फोटो</option>
+                <option value="8">केवल 8 फोटो</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="color:var(--primary);">2. नाम व तारीख पट्टी (Name & Date of Photo)</div>
+          <div class="card-subtitle">SSC, BPSC, UP Police व रेलवे भर्ती फॉर्म के लिए अनिवार्य पट्टी</div>
+
+          <label>उम्मीदवार का नाम (Candidate Name)</label>
+          <input type="text" id="txtName" placeholder="उदा. RAHUL KUMAR" oninput="renderGrid()">
+
+          <div class="controls-row">
+            <div>
+              <label>फोटो खींचने की तारीख (DOP)</label>
+              <input type="text" id="txtDate" placeholder="उदा. DOP: 15/09/2026" oninput="renderGrid()">
+            </div>
+            <div>
+              <label>पट्टी का बैकग्राउंड</label>
+              <select id="selStripBg" onchange="renderGrid()">
+                <option value="white" selected>सफेद पट्टी (White Strip)</option>
+                <option value="none">कोई पट्टी नहीं (No Strip)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="color:var(--accent);">3. फोटो एडजस्टमेंट (Zoom & Light)</div>
+          <div class="card-subtitle">चेहरे को 70-80% फ्रेम में फिट करने के लिए एडजस्ट करें</div>
+
+          <div class="slider-row">
+            <div class="slider-box">
+              <div class="slider-header">
+                <span>ज़ूम (ZOOM)</span>
+                <span id="dispZoom">1.0x</span>
+              </div>
+              <input type="range" id="rngZoom" min="0.8" max="2.5" step="0.05" value="1.0" oninput="updateSliders(); renderGrid();">
+            </div>
+            <div class="slider-box">
+              <div class="slider-header">
+                <span>ऊपर/नीचे (PAN Y)</span>
+                <span id="dispPanY">0px</span>
+              </div>
+              <input type="range" id="rngPanY" min="-120" max="120" step="2" value="0" oninput="updateSliders(); renderGrid();">
+            </div>
+          </div>
+
+          <div class="slider-row">
+            <div class="slider-box">
+              <div class="slider-header">
+                <span>ब्राइटनेस (LIGHT)</span>
+                <span id="dispBright">100%</span>
+              </div>
+              <input type="range" id="rngBright" min="70" max="150" step="1" value="100" oninput="updateSliders(); renderGrid();">
+            </div>
+            <div class="slider-box">
+              <div class="slider-header">
+                <span>कंट्रास्ट (CONTRAST)</span>
+                <span id="dispContrast">100%</span>
+              </div>
+              <input type="range" id="rngContrast" min="70" max="150" step="1" value="100" oninput="updateSliders(); renderGrid();">
             </div>
           </div>
         </div>
@@ -350,7 +456,7 @@
       <!-- PREVIEW & DOWNLOAD -->
       <div class="sticky-pane">
         <div class="card">
-          <div class="card-title" style="color:var(--accent);">2. प्रिंटेबल शीट प्रीव्यू</div>
+          <div class="card-title" style="color:var(--accent);">4. प्रिंटेबल शीट प्रीव्यू</div>
           <div class="card-subtitle" id="sheetSummary">तैयार शीट (Ready Sheet)</div>
 
           <div class="preview-box">
@@ -368,7 +474,7 @@
     <!-- ZERO STORAGE PLEDGE -->
     <div style="display:flex; align-items:center; gap:10px; background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.25); border-radius:8px; padding:10px 14px; margin-top:1.5rem;">
       <span style="font-size:1.2rem;">🔒</span>
-      <span style="font-size:0.78rem; color:var(--muted);">100% सुरक्षित: आपकी फोटो किसी सर्वर पर अपलोड नहीं होती। सारा प्रोसेसिंग आपके ब्राउज़र के अंदर होता है।</span>
+      <span style="font-size:0.78rem; color:var(--muted);">100% सुरक्षित (Zero Storage): आपकी कोई भी फोटो किसी सर्वर पर अपलोड नहीं होती। संपूर्ण प्रोसेस आपके ब्राउज़र में होता है।</span>
     </div>
 
     <!-- ECOSYSTEM CROSS-PROMOTION -->
@@ -402,9 +508,7 @@
 
   <script>
     let userImg = null;
-
-    // Presets in mm (300 DPI baseline: 1 mm ~ 11.811 pixels)
-    const MM_TO_PX = 11.811;
+    const MM_TO_PX = 11.811; // 300 DPI baseline
 
     const presets = {
       in_passport: { w: 35, h: 45, name: 'Indian Passport (3.5x4.5 cm)' },
@@ -413,13 +517,20 @@
     };
 
     const papers = {
-      '4x6': { w: 101.6, h: 152.4, name: '4x6 Inch' }, // 1200 x 1800 px @ 300 DPI
-      'A4': { w: 210, h: 297, name: 'A4' }             // 2480 x 3508 px @ 300 DPI
+      '4x6': { w: 101.6, h: 152.4, name: '4x6 Inch' },
+      'A4': { w: 210, h: 297, name: 'A4' }
     };
 
     window.addEventListener('DOMContentLoaded', () => {
       createPlaceholderImage();
     });
+
+    function updateSliders() {
+      document.getElementById('dispZoom').innerText = document.getElementById('rngZoom').value + 'x';
+      document.getElementById('dispPanY').innerText = document.getElementById('rngPanY').value + 'px';
+      document.getElementById('dispBright').innerText = document.getElementById('rngBright').value + '%';
+      document.getElementById('dispContrast').innerText = document.getElementById('rngContrast').value + '%';
+    }
 
     function createPlaceholderImage() {
       const pCanvas = document.createElement('canvas');
@@ -463,6 +574,16 @@
       const paperKey = document.getElementById('selPaper').value;
       const presetKey = document.getElementById('selPreset').value;
       const hasBorder = document.getElementById('selBorder').value === 'yes';
+      const countOpt = document.getElementById('selCount').value;
+
+      const nameText = document.getElementById('txtName').value.trim();
+      const dateText = document.getElementById('txtDate').value.trim();
+      const stripBg = document.getElementById('selStripBg').value;
+
+      const zoom = parseFloat(document.getElementById('rngZoom').value);
+      const panY = parseFloat(document.getElementById('rngPanY').value);
+      const bright = parseFloat(document.getElementById('rngBright').value);
+      const contrast = parseFloat(document.getElementById('rngContrast').value);
 
       const paper = papers[paperKey];
       const preset = presets[presetKey];
@@ -470,48 +591,101 @@
       const canvas = document.getElementById('canvas');
       const ctx = canvas.getContext('2d');
 
-      // 300 DPI Canvas dimensions
       const sheetW = Math.round(paper.w * MM_TO_PX);
       const sheetH = Math.round(paper.h * MM_TO_PX);
       canvas.width = sheetW;
       canvas.height = sheetH;
 
-      // Fill canvas background with white
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, sheetW, sheetH);
 
       const photoW = Math.round(preset.w * MM_TO_PX);
       const photoH = Math.round(preset.h * MM_TO_PX);
-      const gap = Math.round(4 * MM_TO_PX); // 4 mm gap
+      const gap = Math.round(4 * MM_TO_PX);
 
       const cols = Math.floor((sheetW - gap) / (photoW + gap));
       const rows = Math.floor((sheetH - gap) / (photoH + gap));
-      const totalPhotos = cols * rows;
+      const maxPossible = cols * rows;
 
-      // Center the grid on sheet
+      let targetCount = maxPossible;
+      if (countOpt !== 'full') {
+        targetCount = Math.min(parseInt(countOpt), maxPossible);
+      }
+
+      // Generate a cropped, zoomed, filtered single unit tile
+      const tileCanvas = document.createElement('canvas');
+      tileCanvas.width = photoW;
+      tileCanvas.height = photoH;
+      const tctx = tileCanvas.getContext('2d');
+
+      tctx.filter = `brightness(${bright}%) contrast(${contrast}%)`;
+
+      // Crop calculation based on zoom & pan
+      const baseScale = Math.max(photoW / userImg.width, photoH / userImg.height);
+      const finalScale = baseScale * zoom;
+      const drawW = userImg.width * finalScale;
+      const drawH = userImg.height * finalScale;
+      const drawX = (photoW - drawW) / 2;
+      const drawY = (photoH - drawH) / 2 + (panY * MM_TO_PX * 0.2);
+
+      tctx.drawImage(userImg, drawX, drawY, drawW, drawH);
+      tctx.filter = 'none';
+
+      // Draw Name/Date Strip if requested
+      if (stripBg === 'white' && (nameText || dateText)) {
+        const stripH = Math.round(photoH * 0.18);
+        const stripY = photoH - stripH;
+
+        tctx.fillStyle = '#ffffff';
+        tctx.fillRect(0, stripY, photoW, stripH);
+
+        tctx.strokeStyle = '#cccccc';
+        tctx.lineWidth = 1;
+        tctx.strokeRect(0, stripY, photoW, stripH);
+
+        tctx.fillStyle = '#000000';
+        tctx.textAlign = 'center';
+
+        if (nameText && dateText) {
+          tctx.font = `bold ${Math.round(stripH * 0.38)}px sans-serif`;
+          tctx.fillText(nameText.toUpperCase(), photoW / 2, stripY + stripH * 0.42);
+          tctx.font = `${Math.round(stripH * 0.32)}px sans-serif`;
+          tctx.fillText(dateText, photoW / 2, stripY + stripH * 0.85);
+        } else {
+          const single = nameText || dateText;
+          tctx.font = `bold ${Math.round(stripH * 0.48)}px sans-serif`;
+          tctx.fillText(single, photoW / 2, stripY + stripH * 0.65);
+        }
+      }
+
+      // Tile onto sheet
       const gridW = cols * photoW + (cols - 1) * gap;
       const gridH = rows * photoH + (rows - 1) * gap;
       const startX = Math.round((sheetW - gridW) / 2);
       const startY = Math.round((sheetH - gridH) / 2);
 
+      let drawn = 0;
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
+          if (drawn >= targetCount) break;
+
           const x = startX + c * (photoW + gap);
           const y = startY + r * (photoH + gap);
 
-          // Draw Photo
-          ctx.drawImage(userImg, x, y, photoW, photoH);
+          ctx.drawImage(tileCanvas, x, y);
 
-          // Optional cutting border
           if (hasBorder) {
             ctx.strokeStyle = '#cccccc';
             ctx.lineWidth = 1.5;
             ctx.strokeRect(x, y, photoW, photoH);
           }
+
+          drawn++;
         }
+        if (drawn >= targetCount) break;
       }
 
-      document.getElementById('sheetSummary').innerText = `${paper.name} पर ${totalPhotos} फोटो (${cols} × ${rows} ग्रिड)`;
+      document.getElementById('sheetSummary').innerText = `${paper.name} पर ${drawn} फोटो (${cols} × ${rows} लेआउट)`;
     }
 
     function downloadImage() {
